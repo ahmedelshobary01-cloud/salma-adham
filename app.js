@@ -57,10 +57,22 @@ synthStop();
 mus.hidden=false;
 mus.addEventListener('click',()=>{try{(playing||songOn)?stop():play()}catch(e){}});
 
+// gentle auto scroll after opening; stops when the guest touches or scrolls
+let autoOn=false,lastT=0,acc=0;
+const halt=()=>{autoOn=false};
+['wheel','touchstart','keydown','mousedown'].forEach(ev=>window.addEventListener(ev,halt,{passive:true}));
+const stepScroll=t=>{
+if(!autoOn)return;
+if(lastT){acc+=(t-lastT)*0.045;const px=Math.floor(acc);if(px>0){window.scrollBy(0,px);acc-=px}}
+lastT=t;
+if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-2){autoOn=false;return}
+requestAnimationFrame(stepScroll);
+};
+const auto=()=>{if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;autoOn=true;lastT=0;requestAnimationFrame(stepScroll)};
 const open=()=>{
 if(env.classList.contains('open'))return;
 env.classList.add('open');try{play()}catch(e){}
-setTimeout(()=>{env.classList.add('gone');document.body.classList.remove('locked')},1500);
+setTimeout(()=>{env.classList.add('gone');document.body.classList.remove('locked');setTimeout(auto,2500)},1500);
 };
 env.addEventListener('click',open);
 env.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
