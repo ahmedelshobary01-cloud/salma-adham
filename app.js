@@ -1,6 +1,11 @@
 {
 const env=document.getElementById('env'),mus=document.getElementById('mus'),photo=document.getElementById('photo');
 
+// venue photo, loaded in small parts
+const mi=document.querySelector('.map img');
+const ld=i=>{if(i>4){if(window.VB&&mi){mi.src='data:image/jpeg;base64,'+window.VB;mi.parentElement.style.aspectRatio='3/2'}return}const s=document.createElement('script');s.src='v'+i+'.js';s.onload=()=>ld(i+1);document.head.appendChild(s)};
+ld(1);
+
 // soft background music, generated in the browser
 let ctx=null,master=null,timer=null,playing=false,step=0,nextT=0;
 const chords=[[60,64,67,71],[57,60,64,67],[53,57,60,64],[55,59,62,67]];
@@ -43,7 +48,7 @@ if(!playing)return;playing=false;clearInterval(timer);
 master.gain.setTargetAtTime(0.0001,ctx.currentTime,0.3);
 document.getElementById('w').style.opacity=.2;
 };
-const song=new Audio('song.mp3');song.loop=true;song.preload='auto';
+const song=new Audio('song2.mp3');song.loop=true;song.preload='auto';
 let useSong=true,songOn=false;
 song.addEventListener('error',()=>{useSong=false});
 const play=()=>{
