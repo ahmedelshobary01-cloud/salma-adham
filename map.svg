@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 180" preserveAspectRatio="xMidYMid slice">
+<rect width="460" height="180" fill="#dfe8d8"/>
+<rect y="110" width="460" height="70" fill="#7fa05f"/>
+<g fill="#6c8f4e"><circle cx="30" cy="60" r="40"/><circle cx="90" cy="40" r="34"/><circle cx="380" cy="50" r="38"/><circle cx="440" cy="64" r="36"/></g>
+<g stroke="#8db06a" stroke-width="2" opacity=".9">
+<path d="M120 0v100M140 0v80M160 0v95M300 0v90M320 0v100M340 0v80"/>
+</g>
+<path d="M200 120V60a30 30 0 0 1 60 0v60" fill="none" stroke="#f7f1e6" stroke-width="5"/>
+<path d="M218 180L226 120H234L242 180Z" fill="#f4efe8"/>
+<g fill="#fff"><circle cx="160" cy="110" r="9"/><circle cx="175" cy="104" r="7"/><circle cx="290" cy="108" r="9"/><circle cx="305" cy="104" r="7"/><circle cx="110" cy="118" r="8"/><circle cx="350" cy="116" r="8"/></g>
+<g fill="#f0e8de"><rect x="90" y="132" width="14" height="10"/><rect x="120" y="138" width="14" height="10"/><rect x="330" y="132" width="14" height="10"/><rect x="360" y="138" width="14" height="10"/></g>
+</svg>
