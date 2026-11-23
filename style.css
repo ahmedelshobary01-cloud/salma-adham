@@ -15,7 +15,7 @@ body.locked{overflow:hidden;height:100vh}
 #env.open .hint{opacity:0}
 @keyframes pulse{50%{opacity:.35}}
 .hero{position:relative;height:100svh;min-height:560px;overflow:hidden;background:#e9b48c}
-.hero .shade{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(40,20,10,.15),rgba(40,20,10,.05) 40%,rgba(40,20,10,.25))}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(40,20,10,.35),rgba(40,20,10,.1) 45%,rgba(40,20,10,.35))}
 .hero .txt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;padding-top:22svh;color:#fff;text-shadow:0 2px 14px rgba(60,30,10,.45)}
 .eyebrow{font:700 clamp(11px,3vw,14px) Montserrat,sans-serif;letter-spacing:.32em;text-transform:uppercase}
 .nm{font-family:"Pinyon Script",cursive;font-size:clamp(64px,19vw,110px);line-height:.95;margin-top:6px}
@@ -55,3 +55,5 @@ footer{padding:20px 20px 60px;color:var(--gold);font:500 12px Montserrat,sans-se
 #env .half img{position:absolute;left:0;width:100%;height:200%;object-fit:cover}#env .top img{top:0}#env .bot img{bottom:0}
 .hero img.sc{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 100%}
 .map img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .photo{position:absolute;inset:-4%;background:#e9b48c url(1.jpg) center/cover no-repeat;animation:kb 22s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1) translateY(0)}to{transform:scale(1.12) translateY(-2%)}}
