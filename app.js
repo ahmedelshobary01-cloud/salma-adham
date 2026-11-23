@@ -48,7 +48,7 @@ if(!playing)return;playing=false;clearInterval(timer);
 master.gain.setTargetAtTime(0.0001,ctx.currentTime,0.3);
 document.getElementById('w').style.opacity=.2;
 };
-const song=new Audio('song2.mp3');song.loop=true;song.preload='auto';
+const song=new Audio('song3.mp3');song.loop=true;song.preload='auto';
 let useSong=true,songOn=false;
 song.addEventListener('error',()=>{useSong=false});
 const play=()=>{
@@ -62,18 +62,21 @@ synthStop();
 mus.hidden=false;
 mus.addEventListener('click',()=>{try{(playing||songOn)?stop():play()}catch(e){}});
 
-// gentle auto scroll after opening; stops when the guest touches or scrolls
-let autoOn=false,lastT=0,acc=0;
-const halt=()=>{autoOn=false};
-['wheel','touchstart','keydown','mousedown'].forEach(ev=>window.addEventListener(ev,halt,{passive:true}));
+// gentle auto scroll to the very end; pauses while the guest touches, then carries on
+document.documentElement.style.scrollBehavior='auto';
+let autoOn=false,started=false,lastT=0,acc=0,rt=null;
+const atEnd=()=>window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-2;
 const stepScroll=t=>{
 if(!autoOn)return;
-if(lastT){acc+=(t-lastT)*0.045;const px=Math.floor(acc);if(px>0){window.scrollBy(0,px);acc-=px}}
+if(lastT){acc+=Math.min(t-lastT,60)*0.05;const px=Math.floor(acc);if(px>0){window.scrollTo(0,window.scrollY+px);acc-=px}}
 lastT=t;
-if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-2){autoOn=false;return}
+if(atEnd()){autoOn=false;return}
 requestAnimationFrame(stepScroll);
 };
-const auto=()=>{if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;autoOn=true;lastT=0;requestAnimationFrame(stepScroll)};
+const resume=()=>{if(!started||atEnd())return;autoOn=true;lastT=0;requestAnimationFrame(stepScroll)};
+const halt=()=>{if(!started)return;autoOn=false;clearTimeout(rt);rt=setTimeout(resume,3500)};
+['wheel','touchstart','touchmove','keydown','mousedown'].forEach(ev=>window.addEventListener(ev,halt,{passive:true}));
+const auto=()=>{started=true;resume()};
 const open=()=>{
 if(env.classList.contains('open'))return;
 env.classList.add('open');try{play()}catch(e){}
