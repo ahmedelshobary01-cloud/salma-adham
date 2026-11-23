@@ -30,7 +30,7 @@ if(i===0||i===4)note(ch[(i/4+2)%4]+24,nextT+0.02,2.2,0.035,'sine');
 step++;nextT+=0.5;
 }
 };
-const play=()=>{
+const synthPlay=()=>{
 if(!ctx&&!setup())return;
 if(ctx.state==='suspended')ctx.resume();
 if(playing)return;playing=true;nextT=ctx.currentTime+0.1;
@@ -38,13 +38,24 @@ master.gain.cancelScheduledValues(ctx.currentTime);master.gain.setValueAtTime(0.
 timer=setInterval(sched,150);sched();
 document.getElementById('w').style.opacity=1;
 };
-const stop=()=>{
+const synthStop=()=>{
 if(!playing)return;playing=false;clearInterval(timer);
 master.gain.setTargetAtTime(0.0001,ctx.currentTime,0.3);
 document.getElementById('w').style.opacity=.2;
 };
+const song=new Audio('song.mp3');song.loop=true;song.preload='auto';
+let useSong=true,songOn=false;
+song.addEventListener('error',()=>{useSong=false});
+const play=()=>{
+if(useSong){song.play().then(()=>{songOn=true;document.getElementById('w').style.opacity=1}).catch(()=>{useSong=false;synthPlay()})}
+else synthPlay();
+};
+const stop=()=>{
+if(songOn){song.pause();songOn=false;document.getElementById('w').style.opacity=.2}
+synthStop();
+};
 mus.hidden=false;
-mus.addEventListener('click',()=>{try{playing?stop():play()}catch(e){}});
+mus.addEventListener('click',()=>{try{(playing||songOn)?stop():play()}catch(e){}});
 
 const open=()=>{
 if(env.classList.contains('open'))return;
