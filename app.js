@@ -48,7 +48,7 @@ if(!playing)return;playing=false;clearInterval(timer);
 master.gain.setTargetAtTime(0.0001,ctx.currentTime,0.3);
 document.getElementById('w').style.opacity=.2;
 };
-const song=new Audio('song3.mp3');song.loop=true;song.preload='auto';
+const song=new Audio('song4.mp3');song.loop=true;song.preload='auto';
 let useSong=true,songOn=false;
 song.addEventListener('error',()=>{useSong=false});
 const play=()=>{
