@@ -1,0 +1,1 @@
+module.exports=(req,res)=>{const b=Buffer.from(require('./_og1')+require('./_og2')+require('./_og3'),'base64');res.setHeader('Content-Type','image/jpeg');res.setHeader('Content-Length',b.length);res.setHeader('Cache-Control','public, max-age=86400');res.end(b)};
